@@ -37,15 +37,14 @@ export default function LifeCounter() {
 
   return (
     <div className="text-center mt-10">
-      <div
-        style={{ cursor: 'pointer' }}
-        onClick={handleClick}
-      >
+      <div style={{ cursor: "pointer" }} onClick={handleClick}>
         <h1 className="text-5xl font-bold my-5">{life}</h1>
       </div>
-      
-      <div className="mt-8">
-        <h3 className="text-xl font-semibold">合計変更</h3>
+
+      <div
+        className="mt-8"
+        style={{ visibility: totalChanges !== 0 ? "visible" : "hidden" }}
+      >
         <p className="text-2xl">{totalChanges}</p>
       </div>
     </div>
