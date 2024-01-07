@@ -42,25 +42,17 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
   };
 
   return (
-    <div
-      className="text-center mt-10"
-      style={{
-        transform: isInverted ? "rotate(180deg)" : "none",
-      }}
-    >
-      <div onClick={handleClick}
-        style={{
-          cursor: "pointer",
-        }}
-      >
-        <h1 className="text-5xl font-bold my-5">{life}</h1>
+    <div className="flex flex-col items-center justify-center min-h-[50vh]" 
+         style={{ transform: isInverted ? 'rotate(180deg)' : 'none' }}>
+      <div style={{ cursor: "pointer" }} onClick={handleClick}>
+        <h1 className="font-bold my-5 text-[20vh]">{life}</h1>
       </div>
 
       <div
         className="mt-8"
         style={{ visibility: totalChanges !== 0 ? "visible" : "hidden" }}
       >
-        <p className="text-2xl">{totalChanges}</p>
+        <p className="text-5xl">{totalChanges}</p>
       </div>
     </div>
   );
