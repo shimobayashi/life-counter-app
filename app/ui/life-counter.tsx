@@ -45,11 +45,14 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
     <div
       className="text-center mt-10"
       style={{
-        cursor: "pointer",
         transform: isInverted ? "rotate(180deg)" : "none",
       }}
     >
-      <div onClick={handleClick}>
+      <div onClick={handleClick}
+        style={{
+          cursor: "pointer",
+        }}
+      >
         <h1 className="text-5xl font-bold my-5">{life}</h1>
       </div>
 
