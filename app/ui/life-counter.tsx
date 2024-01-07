@@ -61,7 +61,7 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
       style={{ transform: isInverted ? "rotate(180deg)" : "none" }}
     >
       <div style={{ cursor: "pointer" }} onClick={handleClick}>
-        <h1 className="font-bold my-5 text-[20vh]">{life}</h1>
+        <h1 className="font-bold my-5 text-[20vh] text-white">{life}</h1>
       </div>
 
       <div
