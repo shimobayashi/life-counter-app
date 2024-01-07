@@ -2,18 +2,22 @@
 
 import React, { useState, useEffect } from 'react';
 
-export default function LifeCounter() {
+interface LifeCounterProps {
+  isInverted?: boolean; // 反転されているかどうかのプロパティ
+}
+
+export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
   const [life, setLife] = useState<number>(20);
   const [totalChanges, setTotalChanges] = useState<number>(0);
 
   const handleIncrement = () => {
-    setLife(prevLife => prevLife + 1);
-    setTotalChanges(prevChanges => prevChanges + 1);
+    setLife((prevLife) => prevLife + 1);
+    setTotalChanges((prevChanges) => prevChanges + 1);
   };
 
   const handleDecrement = () => {
-    setLife(prevLife => prevLife - 1);
-    setTotalChanges(prevChanges => prevChanges - 1);
+    setLife((prevLife) => prevLife - 1);
+    setTotalChanges((prevChanges) => prevChanges - 1);
   };
 
   useEffect(() => {
@@ -27,17 +31,25 @@ export default function LifeCounter() {
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    const y = event.clientY - rect.top; // クリック位置を取得
-    if (y < rect.height / 2) {
-      handleIncrement(); // 上半分をクリックした場合、インクリメント
+    const y = event.clientY - rect.top;
+    const isTopHalf = y < rect.height / 2;
+
+    if (isInverted) {
+      isTopHalf ? handleDecrement() : handleIncrement();
     } else {
-      handleDecrement(); // 下半分をクリックした場合、デクリメント
+      isTopHalf ? handleIncrement() : handleDecrement();
     }
   };
 
   return (
-    <div className="text-center mt-10">
-      <div style={{ cursor: "pointer" }} onClick={handleClick}>
+    <div
+      className="text-center mt-10"
+      style={{
+        cursor: "pointer",
+        transform: isInverted ? "rotate(180deg)" : "none",
+      }}
+    >
+      <div onClick={handleClick}>
         <h1 className="text-5xl font-bold my-5">{life}</h1>
       </div>
 
