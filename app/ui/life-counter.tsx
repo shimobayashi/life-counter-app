@@ -27,13 +27,15 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
   };
 
   useEffect(() => {
-    const timeoutDuration = 1000;
-    const changeTimeout = setTimeout(() => {
-      setTotalChanges(0);
-      setShowTotalChanges(false);
-    }, timeoutDuration);
+    if (showTotalChanges) {
+      const timeoutDuration = 1000;
+      const changeTimeout = setTimeout(() => {
+        setShowTotalChanges(false);
+        setTotalChanges(0);
+      }, timeoutDuration);
 
-    return () => clearTimeout(changeTimeout);
+      return () => clearTimeout(changeTimeout);
+    }
   }, [showTotalChanges, totalChanges]);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
