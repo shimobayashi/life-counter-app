@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import './life-counter.css'
+import React, { useState, useEffect } from "react";
+import "./life-counter.css";
 
 interface LifeCounterProps {
   isInverted?: boolean; // 反転されているかどうかのプロパティ
@@ -10,31 +10,31 @@ interface LifeCounterProps {
 export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
   const [life, setLife] = useState<number>(20);
   const [totalChanges, setTotalChanges] = useState<number>(0);
-  const [animationKey, setAnimationKey] = useState<number>(0); // アニメーションのキー
   const [showTotalChanges, setShowTotalChanges] = useState<boolean>(false);
+  const [animationKey, setAnimationKey] = useState<number>(0);
 
+  const handleIncrement = () => updateLife(1);
+  const handleDecrement = () => updateLife(-1);
   const updateLife = (change: number) => {
-    setLife(prevLife => prevLife + change);
-    setTotalChanges(prevChanges => prevChanges + change);
+    setLife((prevLife) => prevLife + change);
+    setTotalChanges((prevChanges) => prevChanges + change);
     setShowTotalChanges(true);
     triggerAnimation();
+  };
+
+  const triggerAnimation = () => {
+    setAnimationKey((prevKey) => prevKey + 1);
   };
 
   useEffect(() => {
     const timeoutDuration = 1000;
     const changeTimeout = setTimeout(() => {
+      setTotalChanges(0);
       setShowTotalChanges(false);
     }, timeoutDuration);
 
     return () => clearTimeout(changeTimeout);
-  }, [totalChanges]);
-
-  const handleIncrement = () => updateLife(1);
-  const handleDecrement = () => updateLife(-1);
-
-  const triggerAnimation = () => {
-    setAnimationKey(prevKey => prevKey + 1); // キーを更新してアニメーションをリセット
-  };
+  }, [showTotalChanges, totalChanges]);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -48,7 +48,8 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
     }
   };
 
-  const displayTotalChanges = totalChanges >= 0 ? `+${totalChanges}` : totalChanges.toString();
+  const displayTotalChanges =
+    totalChanges >= 0 ? `+${totalChanges}` : totalChanges.toString();
 
   return (
     <div
@@ -60,8 +61,7 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
       </div>
 
       <div
-        key={animationKey} // キーを設定
-        data-key={animationKey} // キーを設定
+        key={animationKey}
         className="mt-4 text-5xl animate-change"
         style={{ visibility: showTotalChanges ? "visible" : "hidden" }}
       >
@@ -69,4 +69,4 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
       </div>
     </div>
   );
-};
+}
