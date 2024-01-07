@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-const LifeCounter: React.FC = () => {
+export default function LifeCounter() {
   const [life, setLife] = useState<number>(20);
   const [totalChanges, setTotalChanges] = useState<number>(0);
 
@@ -51,5 +51,3 @@ const LifeCounter: React.FC = () => {
     </div>
   );
 };
-
-export default LifeCounter;
