@@ -11,31 +11,30 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
   const [life, setLife] = useState<number>(20);
   const [totalChanges, setTotalChanges] = useState<number>(0);
   const [animationKey, setAnimationKey] = useState<number>(0); // アニメーションのキー
+  const [showTotalChanges, setShowTotalChanges] = useState<boolean>(false);
 
-  const triggerAnimation = () => {
-    setAnimationKey(prevKey => prevKey + 1); // キーを更新してアニメーションをリセット
-  };
-
-  const handleIncrement = () => {
-    setLife((prevLife) => prevLife + 1);
-    setTotalChanges((prevChanges) => prevChanges + 1);
-    triggerAnimation();
-  };
-
-  const handleDecrement = () => {
-    setLife((prevLife) => prevLife - 1);
-    setTotalChanges((prevChanges) => prevChanges - 1);
+  const updateLife = (change: number) => {
+    setLife(prevLife => prevLife + change);
+    setTotalChanges(prevChanges => prevChanges + change);
+    setShowTotalChanges(true);
     triggerAnimation();
   };
 
   useEffect(() => {
     const timeoutDuration = 1000;
     const changeTimeout = setTimeout(() => {
-      setTotalChanges(0);
+      setShowTotalChanges(false);
     }, timeoutDuration);
 
     return () => clearTimeout(changeTimeout);
   }, [totalChanges]);
+
+  const handleIncrement = () => updateLife(1);
+  const handleDecrement = () => updateLife(-1);
+
+  const triggerAnimation = () => {
+    setAnimationKey(prevKey => prevKey + 1); // キーを更新してアニメーションをリセット
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -49,8 +48,7 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
     }
   };
 
-  // totalChangesがプラスの場合にプラス記号を付ける
-  const displayTotalChanges = totalChanges > 0 ? `+${totalChanges}` : totalChanges.toString();
+  const displayTotalChanges = totalChanges >= 0 ? `+${totalChanges}` : totalChanges.toString();
 
   return (
     <div
@@ -65,7 +63,7 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
         key={animationKey} // キーを設定
         data-key={animationKey} // キーを設定
         className="mt-4 text-5xl animate-change"
-        style={{ visibility: totalChanges !== 0 ? "visible" : "hidden" }}
+        style={{ visibility: showTotalChanges ? "visible" : "hidden" }}
       >
         <p>{displayTotalChanges}</p>
       </div>
