@@ -41,6 +41,9 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
     }
   };
 
+  // totalChangesがプラスの場合にプラス記号を付ける
+  const displayTotalChanges = totalChanges > 0 ? `+${totalChanges}` : totalChanges.toString();
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[50vh]" 
          style={{ transform: isInverted ? 'rotate(180deg)' : 'none' }}>
@@ -52,7 +55,7 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
         className="mt-8"
         style={{ visibility: totalChanges !== 0 ? "visible" : "hidden" }}
       >
-        <p className="text-5xl">{totalChanges}</p>
+        <p className="text-5xl">{displayTotalChanges}</p>
       </div>
     </div>
   );
