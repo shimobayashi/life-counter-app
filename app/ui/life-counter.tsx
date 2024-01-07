@@ -52,6 +52,8 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
 
   const displayTotalChanges =
     totalChanges >= 0 ? `+${totalChanges}` : totalChanges.toString();
+  const totalChangeColor = totalChanges >= 0 ? 'text-green-500' : 'text-red-500';
+
 
   return (
     <div
@@ -64,7 +66,7 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
 
       <div
         key={animationKey}
-        className="mt-4 text-5xl animate-change"
+        className={`mt-4 text-5xl animate-change ${totalChangeColor}`}
         style={{ visibility: showTotalChanges ? "visible" : "hidden" }}
       >
         <p>{displayTotalChanges}</p>
