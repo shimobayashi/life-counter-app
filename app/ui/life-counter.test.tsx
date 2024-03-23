@@ -11,7 +11,7 @@ describe('<LifeCounter />', () => {
       height: 200,
       top: 0,
       left: 0,
-      bottom: 50,
+      bottom: 200,
       right: 100,
       x: 0,
       y: 0,
