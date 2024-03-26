@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import "./life-counter.css";
 
 interface LifeCounterProps {
-  isInverted?: boolean; // 反転されているかどうかのプロパティ
+  isInverted?: boolean; // 表示上上下反転されているかどうかのプロパティ
 }
 
 export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
@@ -15,6 +15,7 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
 
   const handleIncrement = () => updateLife(1);
   const handleDecrement = () => updateLife(-1);
+  // ライフ値を更新し、変更量をカウントしてアニメーションをトリガーする関数
   const updateLife = (change: number) => {
     setLife((prevLife) => prevLife + change);
     setTotalChanges((prevChanges) => prevChanges + change);
@@ -26,6 +27,7 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
     setAnimationKey((prevKey) => prevKey + 1);
   };
 
+  // 1秒後に変化量を非表示にする
   useEffect(() => {
     if (showTotalChanges) {
       const timeoutDuration = 1000;
@@ -38,6 +40,7 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
     }
   }, [showTotalChanges, totalChanges]);
 
+  // クリック位置によって増減を切り替える
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const rect = event.currentTarget.getBoundingClientRect();
     const y = event.clientY - rect.top;
@@ -65,7 +68,7 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
       </div>
 
       <div
-        key={animationKey}
+        key={animationKey} // keyを更新することでアニメーションを再生し直す
         className={`mt-4 text-5xl animate-change ${totalChangeColor}`}
         style={{ visibility: showTotalChanges ? "visible" : "hidden" }}
       >
