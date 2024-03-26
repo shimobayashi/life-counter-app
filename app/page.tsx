@@ -25,13 +25,14 @@ export default function Home() {
         display: debugMode ? 'block' : 'none',
       }}>
         <p>
-          Screen Wake Lock API supported: <b>{`${isSupported}`}</b>
+          Screen Wake Lock API supported: <b suppressHydrationWarning>{`${isSupported}`}</b>
           <br />
-          Released: <b>{`${released}`}</b>
+          Released: <b suppressHydrationWarning>{`${released}`}</b>
         </p>
         <button
           type="button"
           onClick={() => (released === false ? release() : request())}
+          suppressHydrationWarning
         >
           {released === false ? 'Release' : 'Request'}
         </button>
