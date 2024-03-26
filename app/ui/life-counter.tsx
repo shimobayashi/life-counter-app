@@ -57,15 +57,24 @@ export default function LifeCounter({ isInverted = false }: LifeCounterProps) {
     totalChanges >= 0 ? `+${totalChanges}` : totalChanges.toString();
   const totalChangeColor = totalChanges >= 0 ? 'text-green-500' : 'text-red-500';
 
-
   return (
     <div
       className="flex flex-col items-center justify-center min-h-[50vh]"
       style={{ transform: isInverted ? "rotate(180deg)" : "none" }}
     >
-      <div style={{ cursor: "pointer" }} onClick={handleClick}>
-        <h1 className="font-bold my-0 text-[20vh] text-white">{life}</h1>
+      <button
+        className="text-5xl w-full text-slate-100"
+        onClick={handleIncrement}
+      >+</button>
+
+      <div style={{ cursor: "pointer", width: '100%' }} onClick={handleClick}>
+        <h1 className="font-bold my-0 text-[18vh] text-white">{life}</h1>
       </div>
+
+      <button
+        className="text-5xl w-full text-slate-100"
+        onClick={handleDecrement}
+      >−</button>
 
       <div
         key={animationKey} // keyを更新することでアニメーションを再生し直す

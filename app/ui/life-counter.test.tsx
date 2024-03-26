@@ -62,4 +62,18 @@ describe('<LifeCounter />', () => {
       expect(screen.getByText('21')).toBeInTheDocument();
     }
   });
+
+  test('should increment life count on plus button click', () => {
+    render(<LifeCounter />);
+    const plusButton = screen.getByText('+');
+    fireEvent.click(plusButton);
+    expect(screen.getByText('21')).toBeInTheDocument();
+  });
+
+  test('should decrement life count on minus button click', () => {
+    render(<LifeCounter />);
+    const minusButton = screen.getByText('−');
+    fireEvent.click(minusButton);
+    expect(screen.getByText('19')).toBeInTheDocument();
+  });
 });
